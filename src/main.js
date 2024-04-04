@@ -8,8 +8,8 @@ import App from './App.vue'
 import router from './router'
 
 // 测试 axios
-import { getInfo } from '@/api/test/testAPI'
-getInfo().then(res => console.log(res.data) )
+// import { getInfo } from '@/api/test/testAPI'
+// getInfo().then(res => console.log(res.data) )
 
 const app = createApp(App)
 
