@@ -21,17 +21,13 @@ onMounted(() => {
 
 <template>
   <div>
-    <HomePanel
-      title="新鲜好物"
-      subTitle="新鲜出炉 品质靠谱"
-    >
+    <HomePanel title="新鲜好物" subTitle="新鲜出炉 品质靠谱">
       <!-- 插槽主题内容 -->
       <ul class="goods-list">
         <li v-for="item in newGoods" :key="item.id">
           <RouterLink to="/"></RouterLink>
           <a href="">
-            <img :src="item.picture" alt=""
-            >
+            <img :src="item.picture" alt="">
             <p>{{ item.name }}</p>
             <p class="price">&yen;{{ item.price }}</p>
           </a>
