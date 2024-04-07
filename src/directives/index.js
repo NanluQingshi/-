@@ -5,6 +5,7 @@
  */
 import { useIntersectionObserver } from '@vueuse/core'
 
+// 懒加载指令插件
 export const lazyPlugin = {
   install (app) {
     // 懒加载指令逻辑

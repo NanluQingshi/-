@@ -11,9 +11,9 @@ import '@/styles/common.scss'
 // 引入懒加载指令插件
 import { lazyPlugin } from '@/directives/index'
 
-// 测试 banner
-// import { getBanner } from '@/api/home'
-// getBanner()
+// 测试 goods
+import { getGoodsAPI } from '@/api/home'
+getGoodsAPI()
 
 const app = createApp(App)
 

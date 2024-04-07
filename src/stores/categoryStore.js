@@ -1,3 +1,8 @@
+/*
+ * @Author: nlqs
+ * @Date: 2024-04-07 12:35:24
+ * @Description: 
+ */
 import { defineStore } from "pinia"
 import { ref } from 'vue'
 import { getCategoryListAPI } from '@/api/layout'
