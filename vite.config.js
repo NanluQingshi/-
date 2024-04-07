@@ -42,5 +42,10 @@ export default defineConfig({
           `,
       },
     },
+  },
+  // 服务配置
+  server: {
+    // 指定端口号
+    port: 1026
   }
 })
