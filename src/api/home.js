@@ -13,10 +13,23 @@ export const getBannerAPI = (distributionSite) => {
   })
 }
 
+/**
+ * @description: 获取新鲜好物
+ * @param {*} limit 需要的数据条数(后台设置默认4)
+ * @return {*}
+ */
 export const getNewAPI = (limit = 4) => {
   return httpInstance.get('/home/new', {
     params: {
       limit
     }
   })
+}
+
+/**
+ * @description: 获取人气推荐
+ * @return {*}
+ */
+export const getHotAPI = () => {
+  return httpInstance.get('/home/hot')
 }
