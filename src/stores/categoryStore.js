@@ -8,6 +8,7 @@ export const useCategoryStore = defineStore('category', () => {
   // actions - 获取分类列表函数
   const getCategoryList  = async () => {
     const { result } = await getCategoryListAPI()
+    console.log(result)
     categoryList.value = result
   }
 
