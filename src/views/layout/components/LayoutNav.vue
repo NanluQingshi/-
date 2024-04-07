@@ -1,13 +1,13 @@
 <script setup>
-import { getCategoryList } from '@/api/layout'
-import { onMounted, ref } from 'vue'
+import { getCategoryList } from "@/api/layout";
+import { onMounted, ref } from "vue";
 
-const categoryList = ref([])
+const categoryList = ref([]);
 
 onMounted(async () => {
-  const { result } = await getCategoryList()
-  categoryList.value = result
-}) 
+  const { result } = await getCategoryList();
+  categoryList.value = result;
+});
 </script>
 
 <template>
@@ -17,16 +17,23 @@ onMounted(async () => {
         <RouterLink to="/">小兔鲜</RouterLink>
       </h1>
       <ul class="app-header-nav">
-        <li class="home" v-for="item in categoryList" :key="item.id">
+        <li
+          class="home"
+          v-for="item in categoryList"
+          :key="item.id"
+        >
           <RouterLink to="/">{{ item.name }}</RouterLink>
         </li>
       </ul>
       <div class="search">
         <i class="iconfont icon-search"></i>
-        <input type="text" placeholder="搜一搜"> 
+        <input
+          type="text"
+          placeholder="搜一搜"
+        >
       </div>
       <!-- 头部购物车 -->
-      
+
     </div>
   </header>
 </template>
@@ -49,7 +56,8 @@ onMounted(async () => {
       height: 132px;
       width: 100%;
       text-indent: -9999px;
-      background: url('@/assets/images/logo.png') no-repeat center 18px / contain;
+      background: url("@/assets/images/logo.png") no-repeat center 18px /
+        contain;
     }
   }
 
@@ -59,24 +67,24 @@ onMounted(async () => {
     padding-left: 40px;
     position: relative;
     z-index: 998;
-  
+
     li {
       margin-right: 40px;
       width: 38px;
       text-align: center;
-  
+
       a {
         font-size: 16px;
         line-height: 32px;
         height: 32px;
         display: inline-block;
-  
+
         &:hover {
           color: $xtxColor;
           border-bottom: 1px solid $xtxColor;
         }
       }
-  
+
       .active {
         color: $xtxColor;
         border-bottom: 1px solid $xtxColor;
