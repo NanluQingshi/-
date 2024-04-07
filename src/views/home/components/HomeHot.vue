@@ -26,7 +26,7 @@ onMounted(() => getHot())
         <li v-for="item in hotGoods" :key="item.id">
           <RouterLink to="/"></RouterLink>
           <a href="">
-            <img :src="item.picture" alt="">
+            <img v-img-lazy="item.picture" alt="">
             <p class="name">{{ item.title }}</p>
             <p class="desc">{{ item.alt }}</p>
           </a>
