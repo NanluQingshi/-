@@ -12,3 +12,11 @@ export const getBannerAPI = (distributionSite) => {
     }
   })
 }
+
+export const getNewAPI = (limit = 4) => {
+  return httpInstance.get('/home/new', {
+    params: {
+      limit
+    }
+  })
+}
