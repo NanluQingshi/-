@@ -4,6 +4,16 @@ import LayoutNav from '@/views/layout/components/LayoutNav.vue'
 import LayoutFooter from '@/views/layout/components/LayoutFooter.vue'
 import LayoutFixed from './components/LayoutFixed.vue'
 
+import { useCategoryStore } from '@/stores/categoryStore'
+import { onMounted } from 'vue'
+
+const categoryStore = useCategoryStore()
+
+// 组件渲染完后获取导航列表数据
+onMounted(() => {
+  categoryStore.getCategoryList()
+}) 
+
 </script>
 
 <template>
