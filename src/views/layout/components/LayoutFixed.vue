@@ -1,16 +1,9 @@
 <script setup>
 import { useScroll } from '@vueuse/core'
-import { getCategoryList } from '@/api/layout'
-import { ref, onMounted } from 'vue'
+import LayoutNavContainer from '@/views/layout/components/LayoutNavContainer.vue'
 
 const { y } = useScroll(window) 
-const categoryList = ref([])
 
-onMounted(async () => {
-  const { result } = await getCategoryList()
-  console.log(result)
-  categoryList.value = result
-}) 
 </script>
 
 <template>
@@ -18,11 +11,9 @@ onMounted(async () => {
     <div class="container">
       <RouterLink class="logo" to="/"/>
       <!-- 导航区域 -->
-      <ul class="app-header-nav ">
-        <li class="home" v-for="item in categoryList" :key="item.id">
-          <RouterLink to="/">{{ item.name }}</RouterLink>
-        </li>
-      </ul>
+        <!-- 公共导航区域 -->
+      <LayoutNavContainer></LayoutNavContainer>
+        <!-- 吸顶专属导航区域 -->
       <div class="right">
         <RouterLink to="/">品牌</RouterLink>
         <RouterLink to="/">专题</RouterLink>
@@ -80,37 +71,6 @@ onMounted(async () => {
 
       &:hover {
         color: $xtxColor;
-      }
-    }
-  }
-
-  .app-header-nav {
-    width: 820px;
-    display: flex;
-    padding-left: 40px;
-    position: relative;
-    z-index: 998;
-
-    li {
-      margin-right: 40px;
-      width: 38px;
-      text-align: center;
-
-      a {
-        font-size: 16px;
-        line-height: 32px;
-        height: 32px;
-        display: inline-block;
-
-        &:hover {
-          color: $xtxColor;
-          border-bottom: 1px solid $xtxColor;
-        }
-      }
-
-      .active {
-        color: $xtxColor;
-        border-bottom: 1px solid $xtxColor;
       }
     }
   }
