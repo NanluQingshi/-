@@ -1,3 +1,8 @@
+<!--
+ * @Author: nlqs
+ * @Date: 2024-04-05 08:57:40
+ * @Description: 首页导航
+-->
 <script setup>
 import LayoutNavContainer from '@/views/layout/components/LayoutNavContainer.vue'
 
@@ -13,10 +18,7 @@ import LayoutNavContainer from '@/views/layout/components/LayoutNavContainer.vue
       <LayoutNavContainer></LayoutNavContainer>
       <div class="search">
         <i class="iconfont icon-search"></i>
-        <input
-          type="text"
-          placeholder="搜一搜"
-        >
+        <input type="text" placeholder="搜一搜">
       </div>
       <!-- 头部购物车 -->
     </div>

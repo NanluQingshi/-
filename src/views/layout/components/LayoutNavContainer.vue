@@ -1,3 +1,8 @@
+<!--
+ * @Author: nlqs
+ * @Date: 2024-04-07 12:08:11
+ * @Description: 公共导航组件
+-->
 <script setup>
 import { useCategoryStore } from '@/stores/categoryStore'
 
@@ -13,7 +18,7 @@ const categoryStore = useCategoryStore()
           v-for="item in categoryStore.categoryList"
           :key="item.id"
         >
-          <RouterLink to="/">{{ item.name }}</RouterLink>
+          <RouterLink :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
         </li>
       </ul>
   </div>
