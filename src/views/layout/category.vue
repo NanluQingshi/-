@@ -1,14 +1,16 @@
 <!--
  * @Author: nlqs
  * @Date: 2024-04-04 23:29:27
- * @Description: 
+ * @Description: 分类页面
 -->
 <script setup>
 import { getCategoryAPI } from '@/api/category'
-import { ref, watch } from 'vue'
+import { getBannerAPI } from '@/api/home'
+import { onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 const category = ref([])
+const banner = ref([])
 // setup 中没有 this，因此使用函数来代替 this.$route
 const route = useRoute()
 
@@ -18,14 +20,19 @@ const getCategory = async (id) => {
   category.value = result
   // console.log(route)
 }
+const getBanner = async () => {
+  const { result } = await getBannerAPI()
+  banner.value = result
+}
 
+onMounted(() => getBanner())
+// id 变化时执行函数
 watch(
   () => route.params.id, 
   (newValue) => {
     getCategory(newValue)
   }
-)
-  
+) 
 </script>
 
 <template>
@@ -37,6 +44,14 @@ watch(
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item>{{ category.name }}</el-breadcrumb-item>
         </el-breadcrumb>
+      </div>
+      <!-- 轮播图 -->
+      <div class="home-banner">
+        <el-carousel height="500px" motion-blur>
+          <el-carousel-item v-for="item in banner" :key="item.id">
+            <img :src="item.imgUrl" alt="">
+          </el-carousel-item>
+        </el-carousel>
       </div>
     </div>
   </div>
