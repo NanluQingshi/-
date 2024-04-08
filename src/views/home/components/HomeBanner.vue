@@ -1,3 +1,8 @@
+<!--
+ * @Author: nlqs
+ * @Date: 2024-04-07 16:13:51
+ * @Description: 
+-->
 <script setup>
 import { getBannerAPI } from '@/api/home'
 import { onMounted, ref } from 'vue'

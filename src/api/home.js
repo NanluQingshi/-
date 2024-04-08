@@ -1,3 +1,8 @@
+/*
+ * @Author: nlqs
+ * @Date: 2024-04-07 17:04:30
+ * @Description: 首页相关接口
+ */
 import httpInstance from "@/utils/request"
 
 /**
@@ -5,7 +10,7 @@ import httpInstance from "@/utils/request"
  * @param {*} distributionSite: 广告区域展示位置（投放位置 投放位置，1为首页，2为分类商品页） 默认是1
  * @return {*}
  */
-export const getBannerAPI = (distributionSite) => {
+export const getBannerAPI = (distributionSite = 1) => {
   return httpInstance.get('/home/banner', {
     params: {
       distributionSite
