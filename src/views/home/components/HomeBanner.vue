@@ -4,19 +4,10 @@
  * @Description: 
 -->
 <script setup>
-import { getBannerAPI } from '@/api/home'
-import { onMounted, ref } from 'vue'
+import { useBanner } from '@/composables/useBanner'
 
-
-const bannerList = ref([]) 
-const getBannerList = async () => {
-  const { result } = await getBannerAPI()
-  bannerList.value = result
-}
-
-onMounted(() => {
-  getBannerList()
-}) 
+// 首页轮播图 - 1
+const { bannerList } = useBanner(1) 
 
 </script>
 
