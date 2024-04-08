@@ -4,35 +4,13 @@
  * @Description: 分类页面
 -->
 <script setup>
-import { getCategoryAPI } from '@/api/category'
-import { getBannerAPI } from '@/api/home'
-import { onMounted, ref, watch } from 'vue'
-import { onBeforeRouteUpdate, useRoute } from 'vue-router'
+import { useCategory } from '@/views/category/composables/useCategory'
+import { useBanner } from '@/composables/useBanner'
 
-const category = ref([])
-const banner = ref([])
-// setup 中没有 this，因此使用函数来代替 this.$route
-const route = useRoute()
+const { category } = useCategory()
+// 分类页面轮播图 - 2
+const { bannerList } = useBanner(2) 
 
-const getCategory = async (id = route.params.id) => {
-  const { result } = await getCategoryAPI(id)
-  console.log(result)
-  category.value = result
-  // console.log(route)
-}
-const getBanner = async () => {
-  const { result } = await getBannerAPI()
-  banner.value = result
-}
-
-onMounted(() => { 
-  getCategory()
-  getBanner() 
-})
-// 路由参数变化时重新执行函数
-onBeforeRouteUpdate((to) => {
-  getCategory(to.params.id)
-}) 
 </script>
 
 <template>
@@ -48,7 +26,7 @@ onBeforeRouteUpdate((to) => {
       <!-- 轮播图 -->
       <div class="home-banner">
         <el-carousel height="500px" motion-blur>
-          <el-carousel-item v-for="item in banner" :key="item.id">
+          <el-carousel-item v-for="item in bannerList" :key="item.id">
             <img :src="item.imgUrl" alt="">
           </el-carousel-item>
         </el-carousel>
