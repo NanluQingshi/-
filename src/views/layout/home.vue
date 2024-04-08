@@ -1,3 +1,8 @@
+<!--
+ * @Author: nlqs
+ * @Date: 2024-04-04 23:28:48
+ * @Description: 
+-->
 <script setup>
 import HomeCategory from '@/views/home/components/HomeCategory.vue'
 import HomeBanner from '@/views/home/components/HomeBanner.vue'

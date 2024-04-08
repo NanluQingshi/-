@@ -1,7 +1,7 @@
 /*
  * @Author: nlqs
  * @Date: 2024-04-07 12:35:24
- * @Description: 
+ * @Description: 分类列表数据
  */
 import { defineStore } from "pinia"
 import { ref } from 'vue'
@@ -13,7 +13,7 @@ export const useCategoryStore = defineStore('category', () => {
   // actions - 获取分类列表函数
   const getCategoryList  = async () => {
     const { result } = await getCategoryListAPI()
-    console.log(result)
+    // console.log(result)
     categoryList.value = result
   }
 
