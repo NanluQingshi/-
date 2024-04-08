@@ -7,16 +7,16 @@
 import { getCategoryAPI } from '@/api/category'
 import { getBannerAPI } from '@/api/home'
 import { onMounted, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { onBeforeRouteUpdate, useRoute } from 'vue-router'
 
 const category = ref([])
 const banner = ref([])
 // setup 中没有 this，因此使用函数来代替 this.$route
 const route = useRoute()
 
-const getCategory = async (id) => {
+const getCategory = async (id = route.params.id) => {
   const { result } = await getCategoryAPI(id)
-  // console.log(result)
+  console.log(result)
   category.value = result
   // console.log(route)
 }
@@ -25,14 +25,14 @@ const getBanner = async () => {
   banner.value = result
 }
 
-onMounted(() => getBanner())
-// id 变化时执行函数
-watch(
-  () => route.params.id, 
-  (newValue) => {
-    getCategory(newValue)
-  }
-) 
+onMounted(() => { 
+  getCategory()
+  getBanner() 
+})
+// 路由参数变化时重新执行函数
+onBeforeRouteUpdate((to) => {
+  getCategory(to.params.id)
+}) 
 </script>
 
 <template>
@@ -52,6 +52,26 @@ watch(
             <img :src="item.imgUrl" alt="">
           </el-carousel-item>
         </el-carousel>
+      </div>
+      <!-- 分类数据 -->
+      <div class="sub-list">
+        <h3>全部分类</h3>
+        <ul>
+          <li v-for="item in category.children" :key="item.id">
+            <RouterLink to="/">
+              <img v-img-lazy="item.picture" />
+              <p>{{ item.name }}</p>
+            </RouterLink>
+          </li>
+        </ul>
+      </div>
+      <div class="ref-goods" v-for="item in category.children" :key="item.id">
+        <div class="head">
+          <h3>- {{ item.name }}-</h3>
+        </div>
+        <div class="body">
+          <GoodsItem v-for="g in item.goods" :goods="g" :key="g.id" />
+        </div>
       </div>
     </div>
   </div>
@@ -132,6 +152,5 @@ watch(
       padding: 0 40px 30px;
     }
   }
-
 }
 </style>
