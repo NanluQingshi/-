@@ -1,3 +1,8 @@
+/*
+ * @Author: nlqs
+ * @Date: 2024-04-04 18:19:30
+ * @Description: 
+ */
 // createRouter：创建 router 实例对象
 // createWebHistory：创建 history 模式的路由
 import { createRouter, createWebHistory } from 'vue-router'
@@ -19,8 +24,10 @@ const router = createRouter({
           path: '',
           component: Home
         },
+        // 一级分类页
         {
-          path: '/category',
+          // 动态路由
+          path: '/category/:id',
           component: Category
         }
       ]
