@@ -5,25 +5,51 @@
 -->
 <script setup>
 import GoodsItem from '@/components/GoodsItem.vue'
-import { getCategoryFilterAPI } from '@/api/category'
+import { getCategoryFilterAPI, getFieldDataAPI } from '@/api/category'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
+// 面包屑导航
 const data = ref({}) 
+// 商品列表
+const goodsList = ref([])
+// 筛选导航请求参数
+const queryData = ref({
+  categoryId: route.params.id,
+  page: 1,
+  pageSize: 20,
+  sortField: 'publishTime'
+})
+// 获取面包屑导航数据
 const getCategoryFilter = async () => {
   const { result } = await getCategoryFilterAPI(route.params.id)
   // console.log(result)
   data.value = result
 } 
+// 获取分类筛选数据
+const getFieldData = async () => {
+  const { result } = await getFieldDataAPI(queryData.value)
+  // console.log(result)
+  // 商品列表数据
+  goodsList.value = result.items
+}
 
-onMounted(() => getCategoryFilter()) 
+const handleTabChange = () => {
+  queryData.value.page = 1
+  // console.log(queryData.value.sortField)
+  getFieldData()
+}
 
+onMounted(() => { 
+  getCategoryFilter()
+  getFieldData()
+}) 
 </script>
 
 <template>
   <div class="container ">
-    <!-- 面包屑 -->
+    <!-- 面包屑导航 -->
     <div class="bread-container">
       <el-breadcrumb separator=">">
         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
@@ -33,15 +59,16 @@ onMounted(() => getCategoryFilter())
         <el-breadcrumb-item>{{ data.name }}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
+    <!-- 分类筛选 -->
     <div class="sub-container">
-      <el-tabs>
+      <el-tabs v-model="queryData.sortField" @tab-change="handleTabChange">
         <el-tab-pane label="最新商品" name="publishTime"></el-tab-pane>
         <el-tab-pane label="最高人气" name="orderNum"></el-tab-pane>
         <el-tab-pane label="评论最多" name="evaluateNum"></el-tab-pane>
       </el-tabs>
       <div class="body">
          <!-- 商品列表-->
-         <GoodsItem v-for="item in data.goods" :key="item.id" :goods="item"></GoodsItem>
+         <GoodsItem v-for="goods in goodsList" :key="goods.id" :goods="goods"></GoodsItem>
       </div>
     </div>
   </div>
