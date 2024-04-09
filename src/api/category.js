@@ -32,12 +32,15 @@ export const getCategoryFilterAPI = (id) => {
 }
 
 /**
- * @description: 获取筛选导航数据
- * @param {*} data
+ * @description: 获取分类筛选数据
+ * @data { 
+     categoryId: 1005000 ,
+     page: 1,
+     pageSize: 20,
+     sortField: 'publishTime' | 'orderNum' | 'evaluateNum'
+   } 
  * @return {*}
  */
 export const getFieldDataAPI = (data) => {
-  return httpInstance.post('/category/goods/temporary', {
-    data
-  })
+  return httpInstance.post('/category/goods/temporary', data)
 }
