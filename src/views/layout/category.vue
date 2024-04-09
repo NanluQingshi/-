@@ -36,7 +36,7 @@ const { bannerList } = useBanner(2)
         <h3>全部分类</h3>
         <ul>
           <li v-for="item in category.children" :key="item.id">
-            <RouterLink to="/">
+            <RouterLink :to="`/category/sub/${item.id}`">
               <img v-img-lazy="item.picture" />
               <p>{{ item.name }}</p>
             </RouterLink>
