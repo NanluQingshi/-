@@ -17,3 +17,16 @@ export const getCategoryAPI = (id) => {
     }
   })
 }
+
+/**
+ * @description: 获取二级分类及其商品数据
+ * @param {*} id
+ * @return {*}
+ */
+export const getCategoryFilterAPI = (id) => {
+  return httpInstance.get('/category/sub/filter', {
+    params: {
+      id
+    }
+  })
+}
