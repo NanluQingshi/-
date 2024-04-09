@@ -30,3 +30,14 @@ export const getCategoryFilterAPI = (id) => {
     }
   })
 }
+
+/**
+ * @description: 获取筛选导航数据
+ * @param {*} data
+ * @return {*}
+ */
+export const getFieldDataAPI = (data) => {
+  return httpInstance.post('/category/goods/temporary', {
+    data
+  })
+}
