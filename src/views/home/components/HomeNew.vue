@@ -12,6 +12,7 @@ const newGoods = ref([])
 const getNewGoods = async (limit) => {
   const { result } = await getNewAPI(limit)
   newGoods.value = result
+  console.log(result)
 }
 
 onMounted(() => {
@@ -25,12 +26,13 @@ onMounted(() => {
       <!-- 插槽主题内容 -->
       <ul class="goods-list">
         <li v-for="item in newGoods" :key="item.id">
-          <RouterLink to="/"></RouterLink>
+          <RouterLink :to="`/detail/${item.id}`">
           <a href="">
             <img v-img-lazy="item.picture" alt="">
             <p>{{ item.name }}</p>
             <p class="price">&yen;{{ item.price }}</p>
           </a>
+        </RouterLink>
         </li>
       </ul>
     </HomePanel>

@@ -4,6 +4,7 @@
  * @Description: 商品详情页组件
 -->
 <script setup>
+import DetailHot from './components/DetailHot.vue'
 import { getGoodsDetailsAPI } from '@/api/detail'
 import { onMounted, ref } from 'vue'
 import { onBeforeRouteUpdate, useRoute } from 'vue-router'
@@ -13,7 +14,7 @@ const goodsInfo = ref({})
 
 const getGoodsDetails = async (id) => {
   const { result } = await getGoodsDetailsAPI(id)
-  console.log(result)
+  // console.log(result)
   goodsInfo.value = result
 }
 
@@ -72,7 +73,7 @@ onBeforeRouteUpdate((to) => {
                 </li>
                 <li>
                   <p>品牌信息</p>
-                  <p>{{ goodsInfo.brand.name }}</p>
+                  <p>{{ goodsInfo?.brand?.name }}</p>
                   <p><i class="iconfont icon-dynamic-filling"></i>品牌主页</p>
                 </li>
               </ul>
@@ -123,19 +124,22 @@ onBeforeRouteUpdate((to) => {
                 <div class="goods-detail">
                   <!-- 属性 -->
                   <ul class="attrs">
-                    <li v-for="item in goodsInfo.details.properties" :key="item.value">
+                    <li v-for="item in goodsInfo?.details?.properties" :key="item.value">
                       <span class="dt">{{ item.name }}</span>
                       <span class="dd">{{ item.value }}</span>
                     </li>
                   </ul>
                   <!-- 图片 -->
-
+                  <img  v-for="img in goodsInfo?.details?.pictures" v-img-lazy="img" :key="img" alt="">
                 </div>
               </div>
             </div>
             <!-- 24热榜+专题推荐 -->
             <div class="goods-aside">
-
+              <!-- 24小时热榜 -->
+              <DetailHot :type="1"></DetailHot>
+              <!-- 周热榜 -->
+              <DetailHot :type="2"></DetailHot>
             </div>
           </div>
         </div>
