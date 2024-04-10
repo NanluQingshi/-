@@ -5,6 +5,7 @@
 -->
 <script setup>
 import DetailHot from './components/DetailHot.vue'
+import ImageView from '@/components/ImageView.vue'
 import { getGoodsDetailsAPI } from '@/api/detail'
 import { onMounted, ref } from 'vue'
 import { onBeforeRouteUpdate, useRoute } from 'vue-router'
@@ -53,7 +54,7 @@ onBeforeRouteUpdate((to) => {
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
-
+              <ImageView></ImageView>
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>
