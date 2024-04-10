@@ -6,6 +6,7 @@
 <script setup>
 import DetailHot from './components/DetailHot.vue'
 import ImageView from '@/components/ImageView.vue'
+import Sku from '@/views/detail/components/Sku.vue'
 import { getGoodsDetailsAPI } from '@/api/detail'
 import { onMounted, ref } from 'vue'
 import { onBeforeRouteUpdate, useRoute } from 'vue-router'
@@ -17,6 +18,10 @@ const getGoodsDetails = async (id) => {
   const { result } = await getGoodsDetailsAPI(id)
   console.log(result)
   goodsInfo.value = result
+}
+
+const handleChange = (sku) => {
+  console.log(sku)
 }
 
 onMounted(() => getGoodsDetails(route.params.id)) 
@@ -54,7 +59,7 @@ onBeforeRouteUpdate((to) => {
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
-              <ImageView :imageList="goodsInfo.mainPictures"></ImageView>
+              <ImageView :image-list="goodsInfo.mainPictures"></ImageView>
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>
@@ -103,7 +108,7 @@ onBeforeRouteUpdate((to) => {
                 </dl>
               </div>
               <!-- sku组件 -->
-
+              <Sku :goods="goodsInfo" @change="handleChange"></Sku>
               <!-- 数据组件 -->
 
               <!-- 按钮组件 -->
