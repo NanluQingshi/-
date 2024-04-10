@@ -12,7 +12,6 @@ const newGoods = ref([])
 const getNewGoods = async (limit) => {
   const { result } = await getNewAPI(limit)
   newGoods.value = result
-  console.log(result)
 }
 
 onMounted(() => {
