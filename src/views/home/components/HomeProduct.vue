@@ -1,6 +1,5 @@
 <script setup>
 import HomePanel from '@/views/home/components/HomePanel.vue'
-import GoodsItem from '@/components/GoodsItem.vue'
 import { getGoodsAPI } from '@/api/home'
 import { onMounted, ref } from 'vue'
 
