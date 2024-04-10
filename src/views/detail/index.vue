@@ -5,8 +5,6 @@
 -->
 <script setup>
 import DetailHot from './components/DetailHot.vue'
-import ImageView from '@/components/ImageView.vue'
-import Sku from '@/views/detail/components/Sku.vue'
 import { getGoodsDetailsAPI } from '@/api/detail'
 import { onMounted, ref } from 'vue'
 import { onBeforeRouteUpdate, useRoute } from 'vue-router'

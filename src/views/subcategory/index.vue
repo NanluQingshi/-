@@ -4,7 +4,6 @@
  * @Description: 二级分类页面组件
 -->
 <script setup>
-import GoodsItem from '@/components/GoodsItem.vue'
 import { getCategoryFilterAPI, getFieldDataAPI } from '@/api/category'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
