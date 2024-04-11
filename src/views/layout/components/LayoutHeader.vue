@@ -4,19 +4,34 @@
  * @Description: 首页头部
 -->
 <script setup>
+import { useUserStore } from '@/stores/userStore'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
+const userStore = useUserStore()
+
+const logout = () => {
+  // 清除用户信息
+  userStore.clearUserInfo()
+  /* 主要区别在于对浏览器历史记录的影响
+    router.push : 添加新的历史记录条目
+    router.replace : 替换当前的历史记录条目 
+  */
+  // 路由跳转  
+  router.push('/login')
+}
 </script>
 
 <template>
   <nav class="app-topnav">
     <div class="container">
       <ul>
-        <template v-if="false">
-          <li><a href="javascript:;"><i class="iconfont icon-user"></i>周杰伦</a></li>
+        <template v-if="userStore.userInfo?.token">
+          <li><a href="javascript:;"><i class="iconfont icon-user"></i>{{ userStore.userInfo?.nickname }}</a></li>
           <li>
             <el-popconfirm title="确认退出吗?" confirm-button-text="确认" cancel-button-text="取消">
               <template #reference>
-                <a href="javascript:;">退出登录</a>
+                <a href="javascript:;" @click="logout">退出登录</a>
               </template>
             </el-popconfirm>
           </li>

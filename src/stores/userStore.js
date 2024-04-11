@@ -13,13 +13,19 @@ export const useUserStore = defineStore('user', () => {
   // 获取用户信息
   const getUserInfo = async (account, password) => {
     const res = await loginAPI(account, password)
-    // console.log(res)
+    console.log(res)
     userInfo.value = res.result
+  }
+
+  // 清空用户信息
+  const clearUserInfo = () => {
+    userInfo.value = {}
   }
 
   return {
     userInfo,
-    getUserInfo
+    getUserInfo,
+    clearUserInfo
   }
 }, {
   // 持久化
