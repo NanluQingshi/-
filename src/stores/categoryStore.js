@@ -1,7 +1,7 @@
 /*
  * @Author: nlqs
  * @Date: 2024-04-07 12:35:24
- * @Description: 分类列表数据
+ * @Description: 管理分类列表数据
  */
 import { defineStore } from "pinia"
 import { ref } from 'vue'
