@@ -13,7 +13,7 @@ export const useUserStore = defineStore('user', () => {
   // 获取用户信息
   const getUserInfo = async (account, password) => {
     const res = await loginAPI(account, password)
-    console.log(res)
+    // console.log(res)
     userInfo.value = res.result
   }
 
