@@ -6,12 +6,9 @@
 import httpInstance from "@/utils/request"
 
 /**
- * @description: 登录
- * @param {*} userInfo
- * {
- *   account,
- *   password
- * }
+ * @description: 用户登录
+ * @param {String} account - 账号
+ * @param {String} password - 密码
  * @return {*}
  */
 export const loginAPI = (account, password) => {

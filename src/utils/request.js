@@ -1,4 +1,10 @@
+/*
+ * @Author: nlqs
+ * @Date: 2024-04-04 22:28:44
+ * @Description: 
+ */
 import axios from 'axios'
+import { ElMessage } from 'element-plus'
 
 const httpInstance = axios.create({
   baseURL: 'http://pcapi-xiaotuxian-front-devtest.itheima.net',
@@ -19,6 +25,7 @@ httpInstance.interceptors.response.use(function (response) {
   const res = response.data
   // 2xx 范围内的状态码都会触发该函数。
   if (response.status !== 200) {
+    ElMessage.warning(res.msg)
     return Promise.reject(res.msg)
   }
   // 对响应数据做点什么

@@ -5,9 +5,9 @@
 -->
 <script setup>
 import { ref } from "vue"
-import { loginAPI } from '@/api/user'
 import { useRouter } from "vue-router"
 import { ElMessage } from 'element-plus'
+import { useUserStore } from '@/stores/userStore'
 
 // 用户信息
 const userInfo = ref({
@@ -42,6 +42,7 @@ const rules = {
 }
 
 const router = useRouter()
+const userStore = useUserStore()
 
 // 登录
 const login = () => {
@@ -49,7 +50,7 @@ const login = () => {
   formRef.value.validate(async (valid) => {
     // console.log(valid)
     if (valid) {
-     await loginAPI(account, password)
+     await userStore.getUserInfo(account, password)
      ElMessage({ type: 'success', message: '登录成功!' })
      router.replace({ path: '/' })
     }
