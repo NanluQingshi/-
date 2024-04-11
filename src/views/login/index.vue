@@ -5,13 +5,19 @@
 -->
 <script setup>
 import { ref } from "vue"
+import { loginAPI } from '@/api/user'
+import { useRouter } from "vue-router"
+import { ElMessage } from 'element-plus'
 
 // 用户信息
 const userInfo = ref({
-  account: '18610848230',  // 账户
+  account: 'xiaotuxian001',  // 账户
   password: '123456', // 密码
   agree: false  // 同意协议
 }) 
+
+// 表单对象
+const formRef = ref(null)
 
 // 校验规则对象
 const rules = {
@@ -35,6 +41,20 @@ const rules = {
   ]
 }
 
+const router = useRouter()
+
+// 登录
+const login = () => {
+  const { account, password } = userInfo.value
+  formRef.value.validate(async (valid) => {
+    // console.log(valid)
+    if (valid) {
+     await loginAPI(account, password)
+     ElMessage({ type: 'success', message: '登录成功!' })
+     router.replace({ path: '/' })
+    }
+  })
+}
 </script>
 
 
@@ -63,6 +83,7 @@ const rules = {
               label-position="right" 
               label-width="60px"
               status-icon
+              ref="formRef"
               :model="userInfo"
               :rules="rules">
               <el-form-item label="账户" prop="account">
@@ -76,7 +97,7 @@ const rules = {
                   我已同意隐私条款和服务条款
                 </el-checkbox>
               </el-form-item>
-              <el-button size="large" class="subBtn">点击登录</el-button>
+              <el-button size="large" class="subBtn" @click="login">点击登录</el-button>
             </el-form>
           </div>
         </div>
