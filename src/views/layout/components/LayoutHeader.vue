@@ -1,7 +1,7 @@
 <!--
  * @Author: nlqs
  * @Date: 2024-04-05 08:57:29
- * @Description: 
+ * @Description: 首页头部
 -->
 <script setup>
 
@@ -24,7 +24,7 @@
           <li><a href="javascript:;">会员中心</a></li>
         </template>
         <template v-else>
-          <li><a href="javascript:;" @click="router.push('/login')">请先登录</a></li>
+          <li><a href="javascript:;" @click="$router.push('/login')">请先登录</a></li>
           <li><a href="javascript:;">帮助中心</a></li>
           <li><a href="javascript:;">关于我们</a></li>
         </template>

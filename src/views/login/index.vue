@@ -1,9 +1,39 @@
 <!--
  * @Author: nlqs
  * @Date: 2024-04-04 23:17:24
- * @Description: 
+ * @Description: 登录页面组件
 -->
 <script setup>
+import { ref } from "vue"
+
+// 用户信息
+const userInfo = ref({
+  account: '18610848230',  // 账户
+  password: '123456', // 密码
+  agree: false  // 同意协议
+}) 
+
+// 校验规则对象
+const rules = {
+  account: [
+    { required: true, message: '用户名不能为空', trigger: 'blur' },
+  ],
+  password: [
+    { required: true, message: '密码不能为空', trigger: 'blur' },
+    { min: 6, max: 14, message: '密码长度需为6-14个字符', trigger: 'blur' }
+  ],
+  agree: [
+    {
+      validator: (rule, value, callback) => {
+        if (value) {
+          callback()
+        } else {
+          callback(new Error('请勾选协议!'))
+        }
+      }
+    }
+  ]
+}
 
 </script>
 
@@ -29,16 +59,20 @@
         </nav>
         <div class="account-box">
           <div class="form">
-            <el-form label-position="right" label-width="60px"
-              status-icon>
-              <el-form-item  label="账户">
-                <el-input/>
+            <el-form 
+              label-position="right" 
+              label-width="60px"
+              status-icon
+              :model="userInfo"
+              :rules="rules">
+              <el-form-item label="账户" prop="account">
+                <el-input clearable v-model="userInfo.account"/>
               </el-form-item>
-              <el-form-item label="密码">
-                <el-input/>
+              <el-form-item label="密码" prop="password">
+                <el-input type="password" show-password clearable v-model="userInfo.password"/>
               </el-form-item>
-              <el-form-item label-width="22px">
-                <el-checkbox  size="large">
+              <el-form-item label-width="22px" prop="agree">
+                <el-checkbox  size="large" v-model="userInfo.agree">
                   我已同意隐私条款和服务条款
                 </el-checkbox>
               </el-form-item>
