@@ -6,8 +6,13 @@
 
 import { defineStore } from "pinia"
 import { ref, computed } from "vue"
+import { useUserStore } from "./userStore"
+import { addCartAPI, delCartAPI, getCartListAPI } from "@/api/cart"
 
 export const useCartStore = defineStore('cart', () => {
+  // 登录状态
+  const isLogin = useUserStore().isLogin
+
   // 购物车商品列表
   const cartList = ref([])
 
@@ -33,25 +38,47 @@ export const useCartStore = defineStore('cart', () => {
   })
 
   // ===========================
-
-  // 添加购物车
-  const addGoods = (goods) => {
-    /* 
-      - 判断该商品有没有在购物车中，若已存在，则数量 + 1；若不存在，则直接加入购物车(push)
-
-      - 通过传递过来的商品数据，在购物车中寻找 skuId 相等的商品，找到则存在
-    */
-   const item = cartList.value.find(item => item.skuId === goods.skuId)
-   if (item) {
-    item.count++
-   } else {
-    cartList.value.push(goods)
-   }
+  const updateCart = async () => {
+    const { result } = await getCartListAPI()
+    console.log(result)
+    cartList.value = result
   }
 
-  // 删除购物车
-  const removeGoods = (skuId) => {
-    cartList.value = cartList.value.filter(item => item.skuId !== skuId)
+  // 添加购物车
+  const addGoods = async (goods) => {
+    console.log(isLogin)
+    // 用户已登录
+    if (isLogin) {
+      await addCartAPI(goods.skuId, goods.count)
+      updateCart()
+    } else {  // 用户未登录
+      /* 
+        - 判断该商品有没有在购物车中，若已存在，则数量 + 1；若不存在，则直接加入购物车(push)
+  
+        - 通过传递过来的商品数据，在购物车中寻找 skuId 相等的商品，找到则存在
+      */
+      const item = cartList.value.find(item => item.skuId === goods.skuId)
+      if (item) {
+        item.count++
+      } else {
+        cartList.value.push(goods)
+      }
+    }
+  }
+
+  // 删除购物车商品
+  const removeGoods = async (skuId) => {
+    if (isLogin) {
+      await delCartAPI([skuId])
+      updateCart()
+    } else {
+      cartList.value = cartList.value.filter(item => item.skuId !== skuId)
+    }
+  }
+
+   // 清空购物车 - 本地存储
+   const clearGoods = () => {
+    cartList.value = []
   }
 
   // 单选功能
@@ -74,6 +101,7 @@ export const useCartStore = defineStore('cart', () => {
     selectedPrice,
     addGoods,
     removeGoods,
+    clearGoods,
     singleCheck,
     allCheck
   }

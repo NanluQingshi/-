@@ -1,7 +1,7 @@
 /*
  * @Author: nlqs
  * @Date: 2024-04-11 14:19:16
- * @Description: 用户相关接口
+ * @Description: 封装用户相关接口
  */
 import httpInstance from "@/utils/request"
 

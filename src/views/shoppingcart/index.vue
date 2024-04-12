@@ -5,6 +5,13 @@
 -->
 <script setup>
 import { useCartStore } from '@/stores/cartStore'
+import { getCartListAPI } from '@/api/cart'
+import { onMounted } from 'vue'
+
+onMounted(async () => {
+  const res = await getCartListAPI()
+  console.log(res)
+})
 
 const cartStore = useCartStore()
 // 购物车列表
