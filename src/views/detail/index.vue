@@ -30,7 +30,9 @@ const handleChange = async (sku) => {
 
 // 加入购物车
 const addCart = () => {
+  console.log(skuObj.skuId)
   if (skuObj.skuId) {
+    console.log('----111')
     cartStore.addGoods({
       id: goodsInfo.value.id,
       name: goodsInfo.value.name,

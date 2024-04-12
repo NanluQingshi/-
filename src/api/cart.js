@@ -39,3 +39,16 @@ export const delCartAPI = (skuIds) => {
     }
   })
 }
+
+/**
+ * @description: 合并本地购物车到服务器
+ * @param data: {
+ *   {String} skuId
+ *   {Boolean} selected
+ *   {Number} count
+ * }
+ * @return {*}
+ */
+export const mergeCartAPI = (data) => {
+  return httpInstance.post('/member/cart/merge', data)
+}
