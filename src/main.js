@@ -12,19 +12,17 @@ import router from './router'
 
 // 引入初始化样式文件
 import '@/styles/common.scss'
-
 // 引入懒加载指令插件
 import { lazyPlugin } from '@/directives'
 // 引入全局组件插件
 import { componentPlugin } from '@/components'
-
-// 测试 goods
-import { getGoodsAPI } from '@/api/home'
-getGoodsAPI()
+// pinia 持久化
+import persist from 'pinia-plugin-persistedstate'
 
 const app = createApp(App)
 
-app.use(createPinia())
+
+app.use(createPinia().use(persist))
 app.use(router)
 app.use(ElementPlus)
 app.use(lazyPlugin)
