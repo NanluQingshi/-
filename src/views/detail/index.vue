@@ -13,7 +13,7 @@ import { ElMessage } from 'element-plus'
 
 const route = useRoute()
 const goodsInfo = ref({})
-const count = ref(0)
+const count = ref(1)
 let skuObj = {}
 const cartStore = useCartStore()
 

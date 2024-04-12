@@ -12,6 +12,7 @@ import Home from '@/views/layout/home.vue'
 import Category from '@/views/layout/category.vue'
 import SubCategory from '@/views/subcategory/index.vue'
 import Detail from '@/views/detail/index.vue'
+import ShoppingCart from '@/views/shoppingcart/index.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,10 @@ const router = createRouter({
         {
           path: '/detail/:id',
           component: Detail
+        },
+        {
+          path: '/cart',
+          component: ShoppingCart
         }
       ]
     },
