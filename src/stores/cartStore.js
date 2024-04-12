@@ -10,8 +10,9 @@ import { useUserStore } from "./userStore"
 import { addCartAPI, delCartAPI, getCartListAPI } from "@/api/cart"
 
 export const useCartStore = defineStore('cart', () => {
+  const userStore = useUserStore()
   // 登录状态
-  const isLogin = useUserStore().isLogin
+  const isLogin = computed(() => userStore.userInfo.token)
 
   // 购物车商品列表
   const cartList = ref([])
@@ -38,17 +39,17 @@ export const useCartStore = defineStore('cart', () => {
   })
 
   // ===========================
+  // 更新购物车列表
   const updateCart = async () => {
     const { result } = await getCartListAPI()
-    console.log(result)
+    // console.log(result)
     cartList.value = result
   }
 
   // 添加购物车
   const addGoods = async (goods) => {
-    console.log(isLogin)
     // 用户已登录
-    if (isLogin) {
+    if (isLogin.value) {
       await addCartAPI(goods.skuId, goods.count)
       updateCart()
     } else {  // 用户未登录
@@ -57,6 +58,7 @@ export const useCartStore = defineStore('cart', () => {
   
         - 通过传递过来的商品数据，在购物车中寻找 skuId 相等的商品，找到则存在
       */
+     console.log('unlogin')
       const item = cartList.value.find(item => item.skuId === goods.skuId)
       if (item) {
         item.count++
@@ -68,7 +70,8 @@ export const useCartStore = defineStore('cart', () => {
 
   // 删除购物车商品
   const removeGoods = async (skuId) => {
-    if (isLogin) {
+    console.log('cartStore --- removeGoods')
+    if (isLogin.value) {
       await delCartAPI([skuId])
       updateCart()
     } else {
@@ -99,6 +102,7 @@ export const useCartStore = defineStore('cart', () => {
     isAllChecked,
     selectedCount,
     selectedPrice,
+    updateCart,
     addGoods,
     removeGoods,
     clearGoods,

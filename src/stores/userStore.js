@@ -4,23 +4,32 @@
  * @Description: 用户信息数据
  */
 import { defineStore } from "pinia"
-import { computed, ref } from "vue"
+import { ref } from "vue"
 import { loginAPI } from "@/api/user"
 import { useCartStore } from "./cartStore"
+import { mergeCartAPI } from "@/api/cart"
 
 export const useUserStore = defineStore('user', () => {
 
   const cartStore = useCartStore()
   // 用户信息
   const userInfo = ref({})
-  // 登录状态
-  const isLogin = computed(() => userInfo.value.token)
 
   // 获取用户信息
   const getUserInfo = async (account, password) => {
     const res = await loginAPI(account, password)
-    console.log(res)
+    // console.log(res)
     userInfo.value = res.result
+    // 合并本地购物车_调用接口
+    await mergeCartAPI(cartStore.cartList.map(item => {
+      return {
+        skuId: item.skuId,
+        selected: item.selected,
+        count: item.count
+      }
+    }))
+    // 获取最新购物车列表
+    cartStore.updateCart()
   }
 
   // 清空用户信息
@@ -33,7 +42,6 @@ export const useUserStore = defineStore('user', () => {
 
   return {
     userInfo,
-    isLogin,
     getUserInfo,
     clearUserInfo
   }
