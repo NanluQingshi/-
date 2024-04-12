@@ -17,6 +17,23 @@ export const useCartStore = defineStore('cart', () => {
   // 购物车商品总价
   const totalPrice = computed(() => cartList.value.reduce((sum, item) => sum + item.count*item.price, 0).toFixed(2))
 
+  // 全选状态
+  const isAllChecked = computed(() => {
+    return cartList.value.length === 0 ? false : cartList.value.every(item => item.selected === true)
+  })
+
+  // 选中商品数量
+  const selectedCount = computed(() => {
+    return cartList.value.filter(item => item.selected === true).reduce((sum, item) => sum + item.count, 0)
+  })
+
+  // 选中商品总价
+  const selectedPrice = computed(() => {
+    return cartList.value.filter(item => item.selected === true).reduce((sum, item) => sum + item.price*item.count, 0).toFixed(2)
+  })
+
+  // ===========================
+
   // 添加购物车
   const addGoods = (goods) => {
     /* 
@@ -37,12 +54,28 @@ export const useCartStore = defineStore('cart', () => {
     cartList.value = cartList.value.filter(item => item.skuId !== skuId)
   }
 
+  // 单选功能
+  const singleCheck = (selected, skuId) => {
+    const goods = cartList.value.find(item => item.skuId === skuId)
+    goods.selected = selected
+  }
+
+  // 全选功能
+  const allCheck = (selected) => {
+    cartList.value.forEach(item => item.selected = selected)
+  }
+
   return {
     cartList,
     totalCount,
     totalPrice,
+    isAllChecked,
+    selectedCount,
+    selectedPrice,
     addGoods,
-    removeGoods
+    removeGoods,
+    singleCheck,
+    allCheck
   }
 }, {
   persist: true
