@@ -1,7 +1,7 @@
 /*
  * @Author: nlqs
  * @Date: 2024-04-08 12:06:23
- * @Description: 分类页面相关接口
+ * @Description: 封装分类页面相关接口
  */
 import httpInstance from "@/utils/request"
 

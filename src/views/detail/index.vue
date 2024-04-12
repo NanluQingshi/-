@@ -23,8 +23,8 @@ const getGoodsDetails = async (id) => {
   goodsInfo.value = result
 }
 
-const handleChange = (sku) => {
-  console.log(sku)
+const handleChange = async (sku) => {
+  // console.log(sku)
   skuObj = sku
 }
 
