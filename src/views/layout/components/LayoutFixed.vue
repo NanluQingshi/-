@@ -1,6 +1,12 @@
+<!--
+ * @Author: nlqs
+ * @Date: 2024-04-06 17:23:51
+ * @Description: 
+-->
 <script setup>
 import { useScroll } from '@vueuse/core'
 import LayoutNavContainer from '@/views/layout/components/LayoutNavContainer.vue'
+import HeaderCart from './HeaderCart.vue'
 
 const { y } = useScroll(window) 
 
@@ -17,6 +23,7 @@ const { y } = useScroll(window)
       <div class="right">
         <RouterLink to="/">品牌</RouterLink>
         <RouterLink to="/">专题</RouterLink>
+        <HeaderCart></HeaderCart>
       </div>
     </div>
   </div>

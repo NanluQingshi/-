@@ -5,6 +5,7 @@
 -->
 <script setup>
 import LayoutNavContainer from '@/views/layout/components/LayoutNavContainer.vue'
+import HeaderCart from '@/views/layout/components/HeaderCart.vue'
 
 </script>
 
@@ -21,6 +22,7 @@ import LayoutNavContainer from '@/views/layout/components/LayoutNavContainer.vue
         <input type="text" placeholder="搜一搜">
       </div>
       <!-- 头部购物车 -->
+      <HeaderCart></HeaderCart>
     </div>
   </header>
 </template>

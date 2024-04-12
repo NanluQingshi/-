@@ -1,7 +1,7 @@
 /*
  * @Author: nlqs
  * @Date: 2024-04-04 22:28:44
- * @Description: 
+ * @Description: 封装 axios 
  */
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
