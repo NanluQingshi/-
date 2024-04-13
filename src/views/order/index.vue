@@ -8,15 +8,25 @@
 import { generateOrderAPI } from '@/api/order'
 import { onMounted, ref } from 'vue'
 
-const checkInfo = ref({})  // 订单对象
+const orderInfo = ref({})  // 订单对象
 const curAddress = ref({})  // 地址对象
+const switchFlag = ref(false)  // 切换地址弹框
+const activeAddress = ref({})
 
 const getOrderpreInfo = async () => {
   const res = await generateOrderAPI()
-  checkInfo.value = res.result
-  console.log(checkInfo.value)
-  curAddress.value = res.result?.userAddresses[1]
+  orderInfo.value = res.result
+  console.log(orderInfo.value)
+  // 默认地址
+  curAddress.value = res.result?.userAddresses.find(item => item.isDefault === 0)
 } 
+
+// 切换地址
+const switchAddress = () => {
+  curAddress.value = activeAddress.value
+  switchFlag.value = false
+  activeAddress.value = {}
+}
 
 onMounted(() => getOrderpreInfo()) 
 
@@ -39,7 +49,7 @@ onMounted(() => getOrderpreInfo())
               </ul>
             </div>
             <div class="action">
-              <el-button size="large" @click="toggleFlag = true">切换地址</el-button>
+              <el-button size="large" @click="switchFlag = true">切换地址</el-button>
               <el-button size="large" @click="addFlag = true">添加地址</el-button>
             </div>
           </div>
@@ -58,7 +68,7 @@ onMounted(() => getOrderpreInfo())
               </tr>
             </thead>
             <tbody>
-              <tr v-for="i in checkInfo.goods" :key="i.id">
+              <tr v-for="i in orderInfo.goods" :key="i.id">
                 <td>
                   <a href="javascript:;" class="info">
                     <img :src="i.picture" alt="">
@@ -96,19 +106,19 @@ onMounted(() => getOrderpreInfo())
           <div class="total">
             <dl>
               <dt>商品件数：</dt>
-              <dd>{{ checkInfo.summary?.goodsCount }}件</dd>
+              <dd>{{ orderInfo.summary?.goodsCount }}件</dd>
             </dl>
             <dl>
               <dt>商品总价：</dt>
-              <dd>¥{{ checkInfo.summary?.totalPrice.toFixed(2) }}</dd>
+              <dd>¥{{ orderInfo.summary?.totalPrice.toFixed(2) }}</dd>
             </dl>
             <dl>
               <dt>运<i></i>费：</dt>
-              <dd>¥{{ checkInfo.summary?.postFee.toFixed(2) }}</dd>
+              <dd>¥{{ orderInfo.summary?.postFee.toFixed(2) }}</dd>
             </dl>
             <dl>
               <dt>应付总额：</dt>
-              <dd class="price">{{ checkInfo.summary?.totalPayPrice.toFixed(2) }}</dd>
+              <dd class="price">{{ orderInfo.summary?.totalPayPrice.toFixed(2) }}</dd>
             </dl>
           </div>
         </div>
@@ -120,6 +130,27 @@ onMounted(() => getOrderpreInfo())
     </div>
   </div>
   <!-- 切换地址 -->
+  <el-dialog title="切换收货地址" width="30%" center v-model="switchFlag">
+    <div class="addressWrapper">
+      <div class="text item" 
+        v-for="item in orderInfo.userAddresses"  
+        :key="item.id"
+        @click="activeAddress = item"
+        :class="{ active: activeAddress.id === item.id }">
+        <ul>
+        <li><span>收<i />货<i />人：</span>{{ item.receiver }} </li>
+        <li><span>联系方式：</span>{{ item.contact }}</li>
+        <li><span>收货地址：</span>{{ item.fullLocation + item.address }}</li>
+        </ul>
+      </div>
+    </div>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button>取消</el-button>
+        <el-button type="primary" @click="switchAddress">确定</el-button>
+      </span>
+    </template>
+  </el-dialog>
   <!-- 添加地址 -->
 </template>
 
