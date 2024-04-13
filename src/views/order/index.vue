@@ -5,9 +5,13 @@
 -->
 
 <script setup>
-import { generateOrderAPI } from '@/api/order'
+import { generateOrderAPI, submitOrderAPI } from '@/api/order'
+import { useCartStore } from '@/stores/cartStore'
 import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
+const cartStore = useCartStore()
 const orderInfo = ref({})  // 订单对象
 const curAddress = ref({})  // 地址对象
 const switchFlag = ref(false)  // 切换地址弹框
@@ -26,6 +30,38 @@ const switchAddress = () => {
   curAddress.value = activeAddress.value
   switchFlag.value = false
   activeAddress.value = {}
+}
+
+// 提交订单
+const submitOrder = async () => {
+  // 组织参数
+  const data = {
+    deliveryTimeType: 1,
+    payType: 1,
+    payChannel: 1,
+    buyerMessage: '',
+    goods: orderInfo.value.goods.map(item => {
+      return {
+        skuId: item.skuId,
+        count: item.count
+      }
+    }),
+    addressId: curAddress.value.id
+  }
+  // 发送请求
+  const res = await submitOrderAPI(data)
+  console.log(res)
+  // 获取订单 id
+  const orderId = res.result.id
+  // 更新购物车
+  cartStore.updateCart()
+  // 路由跳转 - 跳转到支付页
+  router.push({
+    path: '/pay',
+    query: {
+      id: orderId
+    }
+  })
 }
 
 onMounted(() => getOrderpreInfo()) 
@@ -124,7 +160,7 @@ onMounted(() => getOrderpreInfo())
         </div>
         <!-- 提交订单 -->
         <div class="submit">
-          <el-button type="primary" size="large" >提交订单</el-button>
+          <el-button type="primary" size="large" @click="submitOrder">提交订单</el-button>
         </div>
       </div>
     </div>
