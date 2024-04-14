@@ -16,6 +16,9 @@ import ShoppingCart from '@/views/shoppingcart/index.vue'
 import Order from '@/views/order/index.vue'
 import Pay from '@/views/pay/index.vue'
 import PayBack from '@/views/pay/payback.vue'
+import User from '@/views/user/index.vue'
+import UserInfo from '@/views/user/components/UserInfo.vue'
+import UserOrder from '@/views/user/components/UserOrder.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -58,6 +61,21 @@ const router = createRouter({
         {
           path: 'paycallback',  // 注意路径，必须是 paycallback
           component: PayBack
+        },
+        {
+          path: 'user',
+          component: User,
+          // 三级路由
+          children: [
+            {
+              path: '',
+              component: UserInfo
+            },
+            {
+              path: 'order',
+              component: UserOrder
+            }
+          ]
         }
       ]
     },
