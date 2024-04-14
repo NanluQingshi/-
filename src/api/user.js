@@ -18,3 +18,16 @@ export const loginAPI = (account, password) => {
     password
   })
 }
+
+/**
+ * @description: 获取猜你喜欢列表
+ * @param {Number} limit - 每页条数
+ * @return {*}
+ */
+export const getLikeListAPI = ({ limit = 4 }) => {
+  return httpInstance.get('/goods/relevant', {
+    params: {
+      limit
+    }
+  })
+}
