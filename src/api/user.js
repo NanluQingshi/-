@@ -31,3 +31,17 @@ export const getLikeListAPI = ({ limit = 4 }) => {
     }
   })
 }
+
+/**
+ * @description: 获取用户订单
+ * @param {Object} params
+ * params: {
+    orderState:0,
+    page:1,
+    pageSize:2
+  }
+ * @return {*}
+ */
+export const getUserOrderAPI = (params) => {
+  return httpInstance.get('/member/order', params)
+}

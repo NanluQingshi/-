@@ -9,7 +9,7 @@ import { useUserStore } from '@/stores/userStore'
 
 const httpInstance = axios.create({
   baseURL: 'http://pcapi-xiaotuxian-front-devtest.itheima.net',
-  timeout: 3000
+  timeout: 10000
 })
 
 // 添加请求拦截器
