@@ -7,18 +7,20 @@
 // createWebHistory：创建 history 模式的路由
 import { createRouter, createWebHistory } from 'vue-router'
 import Layout from '@/views/layout/index.vue'
-import Login from '@/views/login/index.vue'
 import Home from '@/views/layout/home.vue'
 import Category from '@/views/layout/category.vue'
-import SubCategory from '@/views/subcategory/index.vue'
-import Detail from '@/views/detail/index.vue'
-import ShoppingCart from '@/views/shoppingcart/index.vue'
-import Order from '@/views/order/index.vue'
-import Pay from '@/views/pay/index.vue'
-import PayBack from '@/views/pay/payback.vue'
-import User from '@/views/user/index.vue'
-import UserInfo from '@/views/user/components/UserInfo.vue'
-import UserOrder from '@/views/user/components/UserOrder.vue'
+
+// 路由懒加载
+const Login = () => import('@/views/login/index.vue') 
+const SubCategory = () => import('@/views/subcategory/index.vue') 
+const Detail = () => import('@/views/detail/index.vue') 
+const ShoppingCart = () => import('@/views/shoppingcart/index.vue') 
+const Order = () => import('@/views/order/index.vue') 
+const Pay = () => import('@/views/pay/index.vue') 
+const PayBack = () => import('@/views/pay/payback.vue') 
+const User = () => import('@/views/user/index.vue') 
+const UserInfo = () => import('@/views/user/components/UserInfo.vue') 
+const UserOrder = () => import('@/views/user/components/UserOrder.vue') 
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
