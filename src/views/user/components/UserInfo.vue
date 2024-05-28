@@ -1,7 +1,7 @@
 <!--
  * @Author: nlqs
  * @Date: 2024-04-14 15:20:11
- * @Description: 用户信息
+ * @Description: 用户信息组件
 -->
 <script setup>
 import GoodsItem from '@/components/GoodsItem.vue'
