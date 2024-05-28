@@ -1,7 +1,11 @@
 <!--
  * @Author: nlqs
  * @Date: 2024-04-14 15:20:11
+<<<<<<< HEAD
  * @Description: 用户信息组件
+=======
+ * @Description: 用户信息
+>>>>>>> e542cb5a8e7ebba61f0e65c0d3be24e7326dcf15
 -->
 <script setup>
 import GoodsItem from '@/components/GoodsItem.vue'
